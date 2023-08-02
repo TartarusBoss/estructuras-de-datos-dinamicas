@@ -1,2 +1,70 @@
-Tarea #1 - Matías Herrera Vanegas - Estructuras de datos
+Tarea #1 - Matías Herrera Vanegas - Multiplicación sin operadores
 
+using System;
+
+class Multiplicar
+{
+    static int Multiplicacion(int N1, int N2)
+    {
+        int resultado = 0;
+
+        int multiplicador = Math.Abs(N2);
+        for (int i = 0; i < multiplicador; i++)
+        {
+            resultado += N1;
+        }
+
+        if (N2 < 0)
+        {
+            resultado = -resultado;
+        }
+
+        return resultado;
+    }
+
+    static void Main()
+    {
+        // Ejemplos
+        Console.WriteLine($"El resultado de la multiplicacion de 1 y -4 es: {Multiplicacion(1, -4)}");
+        Console.WriteLine($"El resultado de la multiplicacion de -4 y 7 es: {Multiplicacion(-4, 2)}");
+        Console.WriteLine($"El resultado de la multiplicacion de 2 y 10 es: {Multiplicacion(2, 10)}");
+        Console.WriteLine($"El resultado de la multiplicacion de -7 y -5 es: {Multiplicacion(-7, -5)}");
+    }
+}
+
+Tarea #2 - Matías Herrera Vanegas - Suma de valores máximos
+
+using System;
+
+public class Ejercicio2
+{
+    static int maximo_entero = int.MaxValue;
+    static double maximo_doble = double.MaxValue;
+    static float maximo_float = float.MaxValue;
+    static long maximo_long = long.MaxValue;
+
+    public static void Main(string[] args)
+    {
+        // Valores maximos de cada tipo
+        Console.WriteLine("El valor maximo de (int) es: " + maximo_entero);
+        Console.WriteLine("El valor maximo de (double) es: " + maximo_doble);
+        Console.WriteLine("El valor maximo de (float) es: " + maximo_float);
+        Console.WriteLine("El valor maximo de (long) es: " + maximo_long);
+        Console.WriteLine("- - - - - - - - - - - - - - - - - - -");
+
+        // Operacion de suma
+        long suma_enteros = (long)maximo_entero + maximo_entero;
+        double suma_doble = maximo_doble + maximo_doble;
+        float suma_float = maximo_float + maximo_float;
+        long suma_long = maximo_long + maximo_long;
+
+        // Mostrar los resultados
+        string mensaje = "La suma de los valores maximos de (int) es: " + suma_enteros + "\n" +
+                         "La suma de los valores maximos de (double) es: " + suma_doble + "\n" +
+                         "La suma de los valores maximos de (float) es: " + suma_float + "\n" +
+                         "La suma de los valores maximos de (long) es: " + suma_long;
+
+        Console.WriteLine(mensaje);
+        
+    }        
+}        
