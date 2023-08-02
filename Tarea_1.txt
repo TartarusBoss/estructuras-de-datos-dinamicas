@@ -1,0 +1,33 @@
+Tarea #1 - Matías Herrera Vanegas - Multiplicación sin operadores
+
+using System;
+
+class Multiplicar
+{
+    static int Multiplicacion(int N1, int N2)
+    {
+        int resultado = 0;
+
+        int multiplicador = Math.Abs(N2);
+        for (int i = 0; i < multiplicador; i++)
+        {
+            resultado += N1;
+        }
+
+        if (N2 < 0)
+        {
+            resultado = -resultado;
+        }
+
+        return resultado;
+    }
+
+    static void Main()
+    {
+        // Ejemplos
+        Console.WriteLine($"El resultado de la multiplicacion de 1 y -4 es: {Multiplicacion(1, -4)}");
+        Console.WriteLine($"El resultado de la multiplicacion de -4 y 7 es: {Multiplicacion(-4, 2)}");
+        Console.WriteLine($"El resultado de la multiplicacion de 2 y 10 es: {Multiplicacion(2, 10)}");
+        Console.WriteLine($"El resultado de la multiplicacion de -7 y -5 es: {Multiplicacion(-7, -5)}");
+    }
+}
