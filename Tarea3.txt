@@ -1,0 +1,50 @@
+Tarea 3 - Matías Herrera Vanegas
+
+using System;
+
+public class SumMatrix
+{
+    public static void Main(string[] args)
+    {
+        // Matriz 1
+        int[][] m1 = new int[][] 
+        {
+            new int[] {2, 3},
+            new int[] {4, 5}
+        };
+        // Matriz 2
+        int[][] m2 = new int[][] 
+        {
+            new int[] {5, 6},
+            new int[] {7, 8}
+        };
+
+        // Crear una matriz para el resultado
+        int[][] result = new int[m1.Length][];
+
+        // LLamar función
+        SumMatrices(m1, m2, result, 0, 0);
+
+        // Imprimir 
+        foreach (var row in result)
+        {
+            Console.WriteLine(string.Join(" ", row));
+        }
+    }
+
+    // Función para sumar las matrices
+    public static void SumMatrices(int[][] m1, int[][] m2, int[][] result, int i, int j)
+    {
+        // Verifica si se han recorrido las filas
+        if (i == m1.Length) return;
+
+        // Si es el inicio de una fila crea un arreglo para almacenar
+        if (j == 0) result[i] = new int[m1[i].Length];
+
+        // Sumar los elementos de las matrices y guardar el resultado
+        result[i][j] = m1[i][j] + m2[i][j];
+
+        // llamda para el siguiente elemento en la misma fila o la siguiente fila
+        SumMatrices(m1, m2, result, i + (j + 1) / m1[i].Length, (j + 1) % m1[i].Length);
+    }
+}
