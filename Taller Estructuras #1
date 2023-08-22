@@ -62,3 +62,42 @@ class Program
     }
 }    
     
+3. Cree una función recursiva que calcule la sumatoria de todos los numeros impares de una matriz cuadrada (Sumar n-1/2 en una matriz cuadrada)
+
+using System;
+
+class Program 
+{
+    //Metodo que recibe matriz, fila y columna
+    static int SumaImparesMatriz(int[,] matriz, int fila = 0, int columna = 0 ) {
+        //Verifica si fila = al numero de filas, es para saber cuando se procesaron todas las filas
+        if(fila == matriz.GetLength(0)) return 0;
+
+        int valor = matriz[fila, columna];
+        //Si es impar, a sumaparcial se le asigna el valor de "valor", sino toma el 0
+        int sumaParcial = (valor % 2 != 0) ? valor : 0;
+        //Mover a la sgte columna
+        columna ++;
+        //Verifica si se ha alcanzado el final de la fila, devuelve la cantidad de columnas
+        if (columna == matriz.GetLength(1)) {
+            columna = 0;
+            //Se aumenta el valor de fila en 1
+            fila++;
+
+        }
+        return sumaParcial + SumaImparesMatriz(matriz, fila, columna);
+
+    }
+
+
+    static void Main()
+    {
+    int[,] matriz = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+    int resultado = SumaImparesMatriz(matriz);
+    Console.WriteLine("La sumatoria de los numeros impares en la matriz es: " + resultado);     
+    }
+}    
