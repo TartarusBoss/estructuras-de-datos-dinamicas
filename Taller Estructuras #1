@@ -1,0 +1,64 @@
+Taller - Matías Herrera Vanegas
+1. Cree una función recursiva que reciba un entero y retorne cuantos digitos de este numero son multiplos de 2 y de 4 (RESTRICCION "IGNORE EL 0")
+C#
+
+using System;
+
+class Program
+{
+    //Funcion principal
+    static int MultiplosDe2y4(int numero) {
+        if(numero == 0)
+            return 0;
+    
+    //Extrae el ultimo digito del numero
+    int ultimoDigito = Math.Abs(numero) % 10;
+    //Coge el numero sin el ultimo digito de derecha a izq
+    int cantidadSinUltimoDigito =  MultiplosDe2y4(numero / 10);
+    //Condicion para saber si cada digito es divisible entre 2 o 4
+    if (ultimoDigito != 0 && ultimoDigito % 2 == 0 && ultimoDigito % 4 == 0)
+    //Si se cumple se suma 1 (como un acumulador)
+        return cantidadSinUltimoDigito + 1;
+    //Si no, se retorna el 0  
+    else 
+        return cantidadSinUltimoDigito;
+}
+//Acá le pasamos los parametros
+static void Main()
+{
+    int numero = 2;
+    int resultado = MultiplosDe2y4(numero);
+    Console.WriteLine($"La cantidad de multiplos de 2 y 4 en el numero: {numero},ignorando el 0 es: {resultado}");
+    }
+}
+
+
+2. Cree una función NO recursiva que invierta solo la mitad de un string
+
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;
+
+class Program
+{
+    //Funcion principal
+    static string MitadString(string frase) {
+        int longitud = frase.Length;
+        int mitad = longitud / 2;
+        
+        string primeraMitad = frase.Substring(0, mitad);
+        string segundaMitad = frase.Substring(mitad);
+        
+        string resultado = primeraMitad + new string(segundaMitad.Reverse().ToArray());
+        return resultado;
+    }
+    
+    static void Main()
+    {
+        string frase = "abcdef";
+        string resultado = MitadString(frase);
+        Console.WriteLine(resultado);
+    }
+}    
+    
