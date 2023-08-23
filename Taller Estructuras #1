@@ -101,3 +101,69 @@ class Program
     Console.WriteLine("La sumatoria de los numeros impares en la matriz es: " + resultado);     
     }
 }    
+
+
+4. Cree una función recursiva que reciba una lista, un elemento y un indice y retorne si el elemento está en la lista dada y en el indice dado 
+using System;
+using System.Linq;
+
+class Program 
+{
+    static bool BuscarNumeroEnIndice(List<int> lista, int elemento, int indice)
+    {
+        //Si el indice es negativo o es mayor que la lista
+        if (indice < 0 || indice >= lista.Count)
+        {
+            return false;
+        }
+
+        // Verifica si el elemento en el índice dado coincide con el elemento buscado
+        if (lista[indice] == elemento)
+        {
+            return true;
+        }
+
+        return false; // Retorna false si el elemento no coincide con el índice dado
+    }
+        
+    static void Main() 
+    {
+        //Instancias
+        List<int> miLista = new List<int> {1, 2, 3, 4, 5};
+        int indiceInicial = 4;
+        int numeroBuscado = 5;
+
+        bool resultado = BuscarNumeroEnIndice(miLista, numeroBuscado, indiceInicial);
+
+        if (resultado) // = True
+        {
+            Console.WriteLine($"El numero {numeroBuscado} si está en el índice {indiceInicial} ");
+        }
+        else
+        {
+            Console.WriteLine($"El numero {numeroBuscado} no está en el índice {indiceInicial} ");
+        }
+    }
+}
+
+
+5. Cree una función recursiva que reciba un string alfanumerico y que extraiga los dijitos del string y retorne el número formado por todos los digitos
+
+using System;
+using System.Linq;
+
+class Program 
+{
+    static int ExtraerDigitos(string cadena)
+    {   //Filtra los digitos usando la libreria de Linq, y convierte ese arreglo a entero
+        string digitos = new string(cadena.Where(char.IsDigit).ToArray());
+        return int.Parse(digitos);
+    }
+        
+    static void Main() 
+    {
+        string cadenaAlfanumerica = "abc678def12";
+        int resultado = ExtraerDigitos(cadenaAlfanumerica);
+        Console.WriteLine($"El número formado por los dígitos es: {resultado}");
+    }
+}
