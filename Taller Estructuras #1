@@ -1,7 +1,7 @@
 Taller - Matías Herrera Vanegas
 1. Cree una función recursiva que reciba un entero y retorne cuantos digitos de este numero son multiplos de 2 y de 4 (RESTRICCION "IGNORE EL 0")
 C#
-
+<- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - >
 using System;
 
 class Program
@@ -32,7 +32,7 @@ static void Main()
     }
 }
 
-
+<- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - >
 2. Cree una función NO recursiva que invierta solo la mitad de un string
 
 // Online C# Editor for free
@@ -61,7 +61,7 @@ class Program
         Console.WriteLine(resultado);
     }
 }    
-    
+<- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - >    
 3. Cree una función recursiva que calcule la sumatoria de todos los numeros impares de una matriz cuadrada (Sumar n-1/2 en una matriz cuadrada)
 
 using System;
@@ -102,7 +102,7 @@ class Program
     }
 }    
 
-
+<- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - >
 4. Cree una función recursiva que reciba una lista, un elemento y un indice y retorne si el elemento está en la lista dada y en el indice dado 
 
 using System;
@@ -147,7 +147,7 @@ class Program
     }
 }
 
-
+<- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - >
 
 5. Cree una función recursiva que reciba un string alfanumerico y que extraiga los dijitos del string y retorne el número formado por todos los digitos
 
