@@ -26,7 +26,7 @@ class Program
 //Acá le pasamos los parametros
 static void Main()
 {
-    int numero = 2;
+    int numero = 1234567890;
     int resultado = MultiplosDe2y4(numero);
     Console.WriteLine($"La cantidad de multiplos de 2 y 4 en el numero: {numero},ignorando el 0 es: {resultado}");
     }
@@ -104,12 +104,13 @@ class Program
 
 
 4. Cree una función recursiva que reciba una lista, un elemento y un indice y retorne si el elemento está en la lista dada y en el indice dado 
+
 using System;
 using System.Linq;
 
 class Program 
 {
-    static bool BuscarNumeroEnIndice(List<int> lista, int elemento, int indice)
+    static bool BuscarNumeroEnIndice(List<object> lista, object elemento, int indice)
     {
         //Si el indice es negativo o es mayor que la lista
         if (indice < 0 || indice >= lista.Count)
@@ -118,9 +119,9 @@ class Program
         }
 
         // Verifica si el elemento en el índice dado coincide con el elemento buscado
-        if (lista[indice] == elemento)
+        if (lista[indice].Equals(elemento))
         {
-            return true;
+             return true;
         }
 
         return false; // Retorna false si el elemento no coincide con el índice dado
@@ -129,22 +130,23 @@ class Program
     static void Main() 
     {
         //Instancias
-        List<int> miLista = new List<int> {1, 2, 3, 4, 5};
-        int indiceInicial = 4;
-        int numeroBuscado = 5;
+        List<object> miLista = new List<object> {"A", 1, 3, 4, "Lista", 10, 5, "Hola", 2, "B" };
+        int indiceInicial = 9;
+        object elementoBuscado = "B";
 
-        bool resultado = BuscarNumeroEnIndice(miLista, numeroBuscado, indiceInicial);
+        bool resultado = BuscarNumeroEnIndice(miLista, elementoBuscado, indiceInicial);
 
         if (resultado) // = True
         {
-            Console.WriteLine($"El numero {numeroBuscado} si está en el índice {indiceInicial} ");
+            Console.WriteLine($"El elemento {elementoBuscado} si está en el índice {indiceInicial} ");
         }
         else
         {
-            Console.WriteLine($"El numero {numeroBuscado} no está en el índice {indiceInicial} ");
+            Console.WriteLine($"El elemento {elementoBuscado} no está en el índice {indiceInicial} ");
         }
     }
 }
+
 
 
 5. Cree una función recursiva que reciba un string alfanumerico y que extraiga los dijitos del string y retorne el número formado por todos los digitos
