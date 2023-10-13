@@ -13,6 +13,8 @@ Arboles - Trabajo
 1. El proyecto está ubicado en una carpeta llamada prueba, el archivo se llama Main
 2. Yo uso Visual Studio Code para programar en Java, descargar todas las extensiones de Java
 3. Teniendo todo en orden, simplemente darle a ejecutar, o Run Java y el programa se ejecuta
+4. Para cualquier otro entorno solo sería copiar y pegar el codigo omitiendo la primera linea (o especificando su package)
+y debería funcionar
 
 Pd: Implementé la función para que el arbol se balancee
 intenté imprimir el arbol pero no pude
