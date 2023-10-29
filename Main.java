@@ -7,19 +7,23 @@
 */
 
 /*#README
-Arboles - Trabajo
+Arboles - Trabajo actualizado
+
+*CAMBIOS*
+1.Agregué la funcionalidad de buscar un nodo, que devuelve si True o False si el nodo se
+encuentra ingresado
+2.Agregué la opción de calcular el promedio de todos los nodos ingresados en el programa
 
 *Los pasos que YO sigo para ejecutar el proyecto*
 1. El proyecto está ubicado en una carpeta llamada prueba, el archivo se llama Main
 2. Yo uso Visual Studio Code para programar en Java, descargar todas las extensiones de Java
 3. Teniendo todo en orden, simplemente darle a ejecutar, o Run Java y el programa se ejecuta
-4. Para cualquier otro entorno solo sería copiar y pegar el codigo omitiendo la primera linea (o especificando su package)
+4. Para cualquier otro entorno solo sería copiar y pegar el código omitiendo la primera línea (o especificando su package)
 y debería funcionar
 
-Pd: Implementé la función para que el arbol se balancee
-intenté imprimir el arbol pero no pude
+Pd: Implementé la función para que el árbol se balancee
+intenté imprimir el árbol pero no pude
 */
-
 
 
 package prueba; // Esta es la carpeta donde se encuentra el archivo
@@ -43,7 +47,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in); // Se crea una instancia de Scanner pa la entrada del usuario
+        Scanner scanner = new Scanner(System.in); // Se crea una instancia de Scanner para la entrada del usuario
         NodoArbol arbol = null; // Inicializa el árbol como nulo
 
         // Menu
@@ -58,6 +62,8 @@ public class Main {
             System.out.println("6. Altura");
             System.out.println("7. Si es completo");
             System.out.println("8. Número de nodos");
+            System.out.println("9. Buscar un nodo");
+            System.out.println("10. Calcular el promedio de los valores de los nodos");
             System.out.println("X. Salir del menú");
 
             System.out.print("Seleccione una opción: ");
@@ -83,6 +89,12 @@ public class Main {
                 System.out.println("El árbol es completo?: " + esCompleto(arbol));
             } else if (opcion.equals("8")) {
                 System.out.println("Cantidad de nodos: " + contarNodos(arbol));
+            } else if (opcion.equals("9")) {
+                System.out.print("Ingrese el valor a buscar: ");
+                int valor = scanner.nextInt();
+                System.out.println("El nodo con el valor " + valor + " " + (buscarNodo(arbol, valor) ? "existe" : "no existe"));
+            } else if (opcion.equals("10")) {
+                System.out.println("El promedio de los valores de los nodos es: " + calcularPromedio(arbol));
             } else if (opcion.equals("X")) {
                 return; // Si el usuario selecciona X, el programa sale del bucle y termina
             } else {
@@ -222,6 +234,38 @@ public class Main {
         return y;
     }
 
+    // Método para buscar un nodo en el árbol
+    static boolean buscarNodo(NodoArbol raiz, int valor) {
+        if (raiz == null) {
+            return false;
+        }
+        if (raiz.valor == valor) {
+            return true;
+        }
+        return buscarNodo(raiz.izquierdo, valor) || buscarNodo(raiz.derecho, valor);
+    }
+
+    // Método para calcular el promedio de los valores de los nodos
+    static double calcularPromedio(NodoArbol raiz) {
+        if (raiz == null) {
+            return 0;
+        }
+        int[] sumCount = {0, 0}; // Suma y contador para almacenar temporalmente los valores
+        calcularPromedioRec(raiz, sumCount);
+        return (double) sumCount[0] / sumCount[1];
+    }
+
+    // Método auxiliar para calcular el promedio de los valores de los nodos de manera recursiva
+    static void calcularPromedioRec(NodoArbol raiz, int[] sumCount) {
+        if (raiz == null) {
+            return;
+        }
+        sumCount[0] += raiz.valor;
+        sumCount[1]++;
+        calcularPromedioRec(raiz.izquierdo, sumCount);
+        calcularPromedioRec(raiz.derecho, sumCount);
+    }
+
     // Método para contar la cantidad de hojas en el árbol
     static int contarHojas(NodoArbol raiz) {
         if (raiz == null) {
@@ -262,7 +306,7 @@ public class Main {
         int altura = contarAltura(raiz);
         return esCompletoRec(raiz, altura, 0);
     }
-
+    // Método para verificar si el árbol es completo de manera recursiva
     // Método para verificar si el árbol es completo de manera recursiva
     static boolean esCompletoRec(NodoArbol raiz, int altura, int nivel) {
         if (raiz == null) {
@@ -304,6 +348,3 @@ public class Main {
         recorrerInOrder(raiz.derecho);
     }
 }
-
-
-//Fin
