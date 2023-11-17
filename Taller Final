@@ -1,0 +1,249 @@
+/*
+    __  ___           __    __ 
+   /  |/  /  ____ _  / /_  / /_
+  / /|_/ /  / __ `/ / __/ / __/
+ / /  / /  / /_/ / / /_  / /_  
+/_/  /_/   \__,_/  \__/  \__/  
+*/               
+
+/* 
+   # README
+   Trabajo Final Estructuras de Datos
+   
+   * Los pasos que YO sigo para ejecutar el proyecto *
+   1. El proyecto fue desarrollado en Visual Studio, es necesario descargar la biblioteca de SpectreConsole.
+   2. Teniendo todo en orden, simplemente ejecutar/compilar el proyecto.
+   3. Para cualquier otro entorno de C#, solo sería copiar y pegar el código.
+   
+   Todos los requerimientos del enunciado se cumplen en el programa
+   - La estructura de datos utilizada fue BinaryTree y es la más óptima para la representación del árbol.
+*/
+
+// Definición de la clase BinaryTree
+using Spectre.Console;
+using System.Collections.Generic;
+using System;
+
+public class BinaryTree
+{
+    public int? Value;          // Valor del nodo
+    public BinaryTree Left, Right, Parent;  // Referencias a nodos izquierdo, derecho y padre
+
+    // Constructores de la clase BinaryTree
+    public BinaryTree(int? value)
+    {
+        Value = value;
+        Left = Right = Parent = null;
+    }
+
+    public BinaryTree(int? value, BinaryTree parent)
+    {
+        Value = value;
+        Left = Right = null;
+        Parent = parent;
+    }
+}
+
+// Definición de la clase Program
+public class Program
+{
+    // Método principal para ingresar el árbol
+    static BinaryTree IngresarArbol()
+    {
+        Console.WriteLine("Ingrese el árbol binario utilizando Spectre.Console. Use 'X' para nodos nulos.");
+
+        var rootValue = LeerValor("Ingrese el valor del nodo Raíz (o 'X' para nodo nulo): ");
+        var root = new BinaryTree(rootValue);
+
+        IngresarNodos(root);
+
+        return root;
+    }
+
+    // Método para ingresar nodos al árbol
+ static void IngresarNodos(BinaryTree parent)
+{
+    var opcionIzquierdo = AnsiConsole.Prompt(
+        new SelectionPrompt<string>()
+            .Title($"¿Agregar nodo izquierdo a {parent.Value}?")
+            .AddChoices("Sí", "No")
+    );
+
+    if (opcionIzquierdo.Equals("Sí", StringComparison.OrdinalIgnoreCase))
+    {
+        var leftValue = LeerValor($"Ingrese el valor del nodo izquierdo para {parent.Value}: ");
+        parent.Left = new BinaryTree(leftValue, parent);
+
+        // Imprimir el árbol después de ingresar el nodo izquierdo
+        Console.WriteLine("Árbol después de ingresar el nodo izquierdo:");
+        ImprimirArbol(parent);
+
+        IngresarNodos(parent.Left);
+    }
+
+    var opcionDerecho = AnsiConsole.Prompt(
+        new SelectionPrompt<string>()
+            .Title($"¿Agregar nodo derecho a {parent.Value}?")
+            .AddChoices("Sí", "No")
+    );
+
+    if (opcionDerecho.Equals("Sí", StringComparison.OrdinalIgnoreCase))
+    {
+        var rightValue = LeerValor($"Ingrese el valor del nodo derecho para {parent.Value}: ");
+        parent.Right = new BinaryTree(rightValue, parent);
+
+        // Imprimir el árbol después de ingresar el nodo derecho
+        Console.WriteLine("Árbol después de ingresar el nodo derecho:");
+        ImprimirArbol(parent);
+
+        IngresarNodos(parent.Right);
+    }
+}
+
+
+
+    // Método para recorrer el árbol de manera iterativa en orden
+    static void RecorrerEnOrdenIterativo(BinaryTree root, Action<BinaryTree> callback)
+    {
+        var stack = new Stack<BinaryTree>();
+        var current = root;
+
+        while (current != null || stack.Count > 0)
+        {
+            while (current != null)
+            {
+                stack.Push(current);
+                current = current.Left;
+            }
+
+            current = stack.Pop();
+            callback(current);
+            current = current.Right;
+        }
+    }
+
+    // Método para imprimir el árbol
+    static void ImprimirArbol(BinaryTree root)
+    {
+        Console.WriteLine("Árbol:");
+        ImprimirNodo(root, "");
+    }
+
+    // Método auxiliar para imprimir nodos del árbol
+    static void ImprimirNodo(BinaryTree node, string indent, bool isLastChild = true)
+    {
+        if (node == null)
+        {
+            return;
+        }
+
+        var marker = isLastChild ? "└───" : "├───";
+
+        ImprimirNodo(node.Right, indent + (isLastChild ? "    " : "│   "), false);
+
+        if (node.Value.HasValue)
+        {
+            AnsiConsole.MarkupLine($"{indent}{marker}[yellow]{node.Value}[/]");
+        }
+        else
+        {
+            Console.WriteLine($"{indent}{marker}null");
+        }
+
+        ImprimirNodo(node.Left, indent + (isLastChild ? "    " : "│   "), true);
+    }
+
+    // Método para leer el valor del nodo
+    static int? LeerValor(string mensaje)
+    {
+        int? valor = null;
+
+        while (valor == null)
+        {
+            var entrada = AnsiConsole.Prompt(
+                new TextPrompt<string>($"{mensaje}")
+                    .DefaultValue(null)
+                    .PromptStyle(Style.Parse("grey"))
+            );
+
+            if (entrada.ToUpper() == "X")
+            {
+                break;
+            }
+
+            if (entrada.ToUpper() == "NULL")
+            {
+                valor = null;
+            }
+            else if (int.TryParse(entrada, out int resultado))
+            {
+                valor = resultado;
+            }
+            else
+            {
+                Console.WriteLine("Entrada no válida. Ingrese un número, 'X' o 'NULL' para nodo nulo.");
+            }
+        }
+
+        return valor;
+    }
+
+    // Método principal (entry point) del programa
+    static void Main()
+    {
+        BinaryTree arbol = null;
+
+        while (true)
+        {
+            // Menú principal con opciones
+            var opcion = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("----- Menú Principal -----")
+                    .AddChoices("Ingresar árbol", "Recorrer en orden", "Imprimir árbol", "Salir")
+            );
+
+            switch (opcion)
+            {
+                // Opción para ingresar el árbol
+                case "Ingresar árbol":
+                    arbol = IngresarArbol();
+                    break;
+
+                // Opción para recorrer en orden e imprimir el árbol
+                case "Recorrer en orden":
+                    if (arbol != null)
+                    {
+                        Console.WriteLine("Recorrido en orden:");
+                        RecorrerEnOrdenIterativo(arbol, node => AnsiConsole.MarkupLine($"[yellow]callback({node.Value})[/]"));
+                    }
+                    else
+                    {
+                        Console.WriteLine("El árbol está vacío. Ingrese nodos primero.");
+                    }
+                    break;
+
+                // Opción para imprimir el árbol
+                case "Imprimir árbol":
+                    if (arbol != null)
+                    {
+                        ImprimirArbol(arbol);
+                    }
+                    else
+                    {
+                        Console.WriteLine("El árbol está vacío. Ingrese nodos primero.");
+                    }
+                    break;
+
+                // Opción para salir del programa
+                case "Salir":
+                    Environment.Exit(0);
+                    break;
+
+                // Opción por defecto en caso de entrada no válida
+                default:
+                    Console.WriteLine("Opción no válida. Intente nuevamente.");
+                    break;
+            }
+        }
+    }
+}
